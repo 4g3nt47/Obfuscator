@@ -19,14 +19,14 @@
  * Handles strign obfuscation. `key` is encoding key, and `str` is the target string.
  * Returns a pointer to `str`
  */
-char *obfs_encode(unsigned char key, char *str);
+char *obfs_encode(unsigned char key, char str[]);
 
 /**
  * Same as obfs_encode(), but for decoding.
  * This is not used by the program itself, but for the obfuscated programs to use to dynamically decode
  * their obfuscated strings. The function should be copied to protected programs.
  */
-char *obfs_decode(unsigned char key, char *str);
+char *obfs_decode(unsigned char key, char str[]);
 
 // Find the absolute offset of `target` that is `len` bytes long inside file `rfo`
 ssize_t obfs_find_offset(FILE *rfo, const void *target, size_t len);

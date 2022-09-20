@@ -16,7 +16,7 @@
 // The marker for strings to obfuscate.
 const char *OBFS_MARKER = "[OBFS_ENC]";
 
-char *obfs_encode(unsigned char key, char *str){
+char *obfs_encode(unsigned char key, char str[]){
   
   size_t len = strlen(str);
   unsigned char curr_key;
@@ -25,11 +25,12 @@ char *obfs_encode(unsigned char key, char *str){
     while (curr_key == 0 || curr_key == 10 || (curr_key >= 32 && curr_key <= 126))
       curr_key += 47;
     str[i] = str[i] ^ curr_key;
+    key = curr_key;
   }
   return str;
 }
 
-char *obfs_decode(unsigned char key, char *str){
+char *obfs_decode(unsigned char key, char str[]){
 
   size_t len = strlen(str);
   unsigned char curr_key;
@@ -38,6 +39,7 @@ char *obfs_decode(unsigned char key, char *str){
     while (curr_key == 0 || curr_key == 10 || (curr_key >= 32 && curr_key <= 126))
       curr_key += 47;
     str[i] = str[i] ^ curr_key;
+    key = curr_key;
   }
   return str;
 }
