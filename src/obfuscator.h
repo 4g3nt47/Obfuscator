@@ -12,11 +12,12 @@
 #include <stdlib.h>
 #include <string.h>
 
+// The marker for strings to obfuscate.
+const char *OBFS_MARKER = "[OBFS_ENC]";
+
+
 // Maximum number of strings marked for obfuscation to look for.
 #define OBFS_MAX_OFFSETS_COUNT 10
-
-// The prefix used as a marker for strings to obfuscate.
-const char *OBFS_MARKER = "[OBFS_ENC]";
 
 /**
  * Handles strign obfuscation. `key` is encoding key, and `str` is the target string.

@@ -1,13 +1,14 @@
 /**
- *-------------------------------------------------------------------------------------
- *   Obfuscator - A program for obfuscating strings in a program.
+ *--------------------------------------------------------------------------------------
+ *      Obfuscator - A library for obfuscating strings in a program.
  * This is designed to prevent sensitive strings from showing up when dumping strings
  * from a binary, but the encoding scheme is not that secure.
- *   This should be used as a standalone program from the CLI to obfuscate a file with
- * a given key. You only need to copy the obfs_decode() function to your source code to
- * be able to decode the strings at runtime.
- *                                                                   Author: Umar Abdul
- *-------------------------------------------------------------------------------------
+ *      For a protected binary to be able to use it's protected strings, it needs to have
+ * access to the obfs_decode() function and the key used. The recommended way to do this
+ * is to simply copy the code of the obfs_decode() function to your source files, which
+ * is self contained to avoid bloating up your program.
+ *                                                                    Author: Umar Abdul
+ *--------------------------------------------------------------------------------------
  */
 
 #include "obfuscator.h"
@@ -150,13 +151,4 @@ int obfs_run(char *infile, char *outfile, unsigned char key, short int verbose){
     fclose(rfo);
     free(offsets);
     return 0;
-}
-
-int main(int argc, char **argv){
-
-  if (argc < 4){
-    printf("[-] Usage: %s <infile> <outfile> <key>\n", argv[0]);
-    return 1;
-  }
-  return obfs_run(argv[1], argv[2], atoi(argv[3]), 1);
 }
