@@ -6,10 +6,7 @@
  *---------------------------------------------------------------
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-
-int obfs_run(char *infile, char *outfile, unsigned char key, short int verbose);
+#include "obfuscator.h"
 
 int main(int argc, char **argv){
 

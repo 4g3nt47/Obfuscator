@@ -13,6 +13,9 @@
 
 #include "obfuscator.h"
 
+// The marker for strings to obfuscate.
+const char *OBFS_MARKER = "[OBFS_ENC]";
+
 char *obfs_encode(unsigned char key, char *str){
   
   size_t len = strlen(str);
