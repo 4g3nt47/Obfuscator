@@ -12,7 +12,7 @@
 
 #include "obfuscator.h"
 
-void obfs_encode(unsigned char key, char *str){
+char *obfs_encode(unsigned char key, char *str){
   
   size_t len = strlen(str);
   unsigned char curr_key;
@@ -22,9 +22,10 @@ void obfs_encode(unsigned char key, char *str){
       curr_key += 47;
     str[i] = str[i] ^ curr_key;
   }
+  return str;
 }
 
-void obfs_decode(unsigned char key, char *str){
+char *obfs_decode(unsigned char key, char *str){
 
   size_t len = strlen(str);
   unsigned char curr_key;
@@ -34,6 +35,7 @@ void obfs_decode(unsigned char key, char *str){
       curr_key += 47;
     str[i] = str[i] ^ curr_key;
   }
+  return str;
 }
 
 long obfs_find_offset(FILE *rfo, const void *target, size_t len){
