@@ -37,8 +37,10 @@ size_t obfs_filecpy(FILE *dest, FILE *src, size_t len);
 // Keep reading from a file file until a NULL byte or EOF. Return the number of bytes read.
 size_t obfs_read_until_null(FILE *rfo);
 
-// Run the program. Obfuscate file `infile` using `key` and save new file as `outfile`
-int obfs_run(char *infile, char *outfile, unsigned char key, short int verbose);
+/**
+ * Obfuscate strings in file `src` using `key` and write to `dest`
+ */
+void obfs_run(FILE *dest, FILE *src, unsigned char key, short int verbose);
 
 #endif // OBFUSCATOR_H
 
