@@ -42,7 +42,7 @@ char *obfs_decode(unsigned char key, char *str){
   return str;
 }
 
-long obfs_find_offset(FILE *rfo, const void *target, size_t len){
+ssize_t obfs_find_offset(FILE *rfo, const void *target, size_t len){
 
   void *buff = malloc(len);
   int c;
@@ -66,14 +66,27 @@ long obfs_find_offset(FILE *rfo, const void *target, size_t len){
   return -1;
 }
 
-ssize_t obfs_filecpy(FILE *dest, FILE *src, size_t len){
+size_t obfs_filecpy(FILE *dest, FILE *src, size_t len){
 
-  size_t n;
+  size_t n = 0;
   int c;
-  for (n = 0; n < len; n++){
+  for (; n < len; n++){
     if ((c = fgetc(src)) == EOF)
       break;
     fputc(c, dest);
+  }
+  return n;
+}
+
+size_t obfs_read_until_null(FILE *rfo){
+
+  size_t n = 0;
+  int c;
+  while (!feof(rfo)){
+    c = fgetc(rfo);
+    if (c == EOF || c == 0)
+      break;
+    n++;
   }
   return n;
 }
@@ -97,15 +110,8 @@ int obfs_run(char *infile, char *outfile, unsigned char key, short int verbose){
     ssize_t offset = obfs_find_offset(rfo, OBFS_MARKER, marker_len);
     if (offset == -1)
       break;
-    printf("0x%08x\n", (unsigned int)offset);
     // `rfo` if now pointed to the beginning of a target string (with the marker skipped).
-    target_len = 0;
-    while (1){
-      c = fgetc(rfo);
-      if (c == EOF || c == 0)
-        break;
-      target_len++;
-    }
+    target_len = obfs_read_until_null(rfo);
     *(offsets + (index * OBFS_MAX_OFFSETS_COUNT)) = offset;
     *(offsets + (index * OBFS_MAX_OFFSETS_COUNT) + 1) = target_len + marker_len;
     offsets_count++;

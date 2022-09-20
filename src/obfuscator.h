@@ -32,7 +32,10 @@ char *obfs_decode(unsigned char key, char *str);
 ssize_t obfs_find_offset(FILE *rfo, const void *target, size_t len);
 
 // Copy `len` bytes from file `src` into `dest`
-ssize_t obfs_filecpy(FILE *dest, FILE *src, size_t len);
+size_t obfs_filecpy(FILE *dest, FILE *src, size_t len);
+
+// Keep reading from a file file until a NULL byte or EOF. Return the number of bytes read.
+size_t obfs_read_until_null(FILE *rfo);
 
 // Run the program. Obfuscate file `infile` using `key` and save new file as `outfile`
 int obfs_run(char *infile, char *outfile, unsigned char key, short int verbose);
