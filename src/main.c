@@ -14,11 +14,11 @@ int main(int argc, char **argv){
     printf("[-] Usage: %s <infile> <outfile> <key>\n", argv[0]);
     return 1;
   }
-  FILE *src = fopen(argv[1], "r");
+  FILE *src = fopen(argv[1], "rb");
   if (!src){
     printf("[-] Error opening input file!\n");
   }
-  FILE *dest = fopen(argv[2], "w");
+  FILE *dest = fopen(argv[2], "wb");
   if (!dest){
     printf("[-] Error opening output file!\n");
     return 1;
