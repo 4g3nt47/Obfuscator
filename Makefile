@@ -1,5 +1,5 @@
-bin/main: bin/main.o bin/obfuscator.o
-	gcc -Os -s -Wall bin/main.o bin/obfuscator.o -o bin/main
+bin/obfuscator: bin/main.o bin/obfuscator.o
+	gcc -Os -s -Wall bin/main.o bin/obfuscator.o -o bin/obfuscator
 
 bin/main.o: src/main.c
 	gcc -Os -c -Wall src/main.c -o bin/main.o
